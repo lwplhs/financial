@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<div th:fragment="footer-np">
+    <!--进度条-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/np.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/nprogress.js}"></script>
+</div>
+<div th:fragment="footer-content(copyright)">
+    <style type="text/css">
+        html,body{margin:0;padding: 0;}
+        .header{background-color: #ffe4c4;}
+        .main{background-color: #bdb76b;}
+        /*        .footer{background-color: #ffc0cb;}*/
+
+        /* 动态为footer添加类fixed-bottom */
+        .fixed-bottom {position: fixed;bottom: -15px;width:100%;}
+    </style>
+
+
+    <script type="text/javascript">
+        $(function(){
+            function footerPosition(){
+                $("footer").removeClass("fixed-bottom");
+                var contentHeight = document.body.scrollHeight,//网页正文全文高度
+                    winHeight = window.innerHeight;//可视窗口高度，不包括浏览器顶部工具栏
+                if(!(contentHeight > winHeight)){
+                    //当网页正文高度小于可视窗口高度时，为footer添加类fixed-bottom
+                    $("footer").addClass("fixed-bottom");
+                } else {
+                    $("footer").removeClass("fixed-bottom");
+                }
+            }
+            footerPosition();
+            $(window).resize(footerPosition);
+            $(document.body).resize(footerPosition());
+        });
+    </script>
+    <footer class="footer text-right" >
+        <th:block th:text="${copyright}"></th:block><div class=""></div>
+    </footer>
+    <div hidden="hidden" id="reflush"></div>
+</div>
+<div th:fragment="footer_common">
+    <!--jquery-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery/1.9.1/jquery.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery/1.9.1/jquery.serializejson.js}"></script>
+    <!--$.tale-->
+    <script th:src="@{/static/admin/js/base.js}"></script>
+    <!--layui-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/layui/2.5.6/layui.all.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/layui/2.5.6/layui.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/laypage/1.2/laypage.js}"></script>
+    <!---h-ui-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/h-ui/js/H-ui.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/h-ui.admin/js/H-ui.admin.js}"></script>
+    <!--右键菜单-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.contextmenu/jquery.contextmenu.r2.js}"></script>
+    <!--工具js-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/utils/flyrise.util.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/utils/flyrise.constants.js}"></script>
+    <!--时间控件-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/My97DatePicker/4.8/WdatePicker.js}"></script>
+    <!--表格-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/datatables/1.10.0/jquery.dataTables.min.js}"></script>
+    <!--校验-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.validation/1.14.0/jquery.validate.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.validation/1.14.0/validate-methods.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.validation/1.14.0/messages_zh.js}"></script>
+    <!--uploader-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/webuploader/0.1.5/webuploader.min.js}"></script>
+    <!--ueditor-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/ueditor.config.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/ueditor.all.min.js}"> </script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/ueditor/1.4.3/lang/zh-cn/zh-cn.js}"></script>
+    <!--image展示-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/loginPic/imageShow.js}"></script>
+    <!--ztree-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/zTree/v3/js/jquery.ztree.all-3.5.min.js}"></script>
+    <script type="text/javascript" th:src="@{/static/admin/n_n/zTree/v3/js/jquery.ztree.exedit-3.5.js}"></script>
+    <!--cookie-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.cookie.1.4.1/jquery.cookie.js}"></script>
+    <!--nicescroll-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/jquery.nicescroll/jquery.nicescroll.js}"></script>
+    <!---plug-->
+    <script type="text/javascript" th:src="@{/static/admin/n_n/plug/js/plug.js}"></script>
+</div>
+</html>

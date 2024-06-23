@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.lwp.website.dao.UserDao">
+  <resultMap id="BaseResultMap" type="com.lwp.website.entity.Vo.UserVo">
+    <id column="id" jdbcType="VARCHAR" property="id" />
+    <result column="username" jdbcType="VARCHAR" property="username" />
+    <result column="password" jdbcType="VARCHAR" property="password" />
+    <result column="telephone" jdbcType="VARCHAR" property="telephone" />
+    <result column="email" jdbcType="VARCHAR" property="email" />
+    <result column="home_url" jdbcType="VARCHAR" property="homeUrl" />
+    <result column="screen_name" jdbcType="VARCHAR" property="screenName" />
+    <result column="created" jdbcType="INTEGER" property="created" />
+    <result column="activated" jdbcType="INTEGER" property="activated" />
+    <result column="logged" jdbcType="INTEGER" property="logged" />
+    <result column="group_name" jdbcType="VARCHAR" property="groupName" />
+    <result column="status" jdbcType="VARCHAR" property="status" />
+    <result column="type" jdbcType="VARCHAR" property="type" />
+    <result column="identification" jdbcType="VARCHAR" property="identification" />
+    <result column="address" jdbcType="VARCHAR" property="address" />
+    <result column="unit" jdbcType="VARCHAR" property="unit" />
+  </resultMap>
+<!--  <cache eviction="LRU" flushInterval="10800000"  size="512" readOnly="true"/>-->
+
+  <sql id="Base_Column_List">
+    id, username, password,telephone, email, home_url, screen_name, created, activated, logged,
+    group_name,status,type,identification,address,unit
+  </sql>
+  <select id="selectByPrimaryKey" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from t_users
+    where id = #{id,jdbcType=VARCHAR}
+  </select>
+  <select id="getUserListByStatus" parameterType="java.util.Map" resultMap="BaseResultMap">
+      select * from t_users where 1 = 1
+        <foreach collection="status" item="s" open=" and(" index="index" close=")" separator=" or ">
+            status = #{s,jdbcType=VARCHAR}
+        </foreach>
+        <foreach collection="type" item="t" open=" and(" close=")" index="index" separator=" or ">
+            type = #{t,jdbcType=VARCHAR}
+        </foreach>
+        <if test="searchKey != null">
+          and (username like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or telephone like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or email like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or screen_name like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or identification like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+            or address like concat('%',#{searchKey,jdbcType=VARCHAR},'%')
+          )
+        </if>
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer">
+    delete from t_users
+    where id = #{id,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.lwp.website.entity.Vo.UserVo" useGeneratedKeys="true" keyProperty="id">
+    insert into t_users
+      <trim prefix="(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          id,
+        </if>
+        <if test="username != null">
+          username,
+        </if>
+        <if test="password != null">
+          password,
+        </if>
+        <if test="telephone != null">
+          telephone,
+        </if>
+        <if test="email != null">
+          email,
+        </if>
+        <if test="homeUrl != null">
+          home_url,
+        </if>
+        <if test="screenName != null">
+          screen_name,
+        </if>
+        <if test="created != null">
+          created,
+        </if>
+        <if test="activated != null">
+          activated,
+        </if>
+        <if test="logged != null">
+          logged,
+        </if>
+        <if test="groupName != null">
+          group_name,
+        </if>
+        <if test="status != null">
+          status,
+        </if>
+        <if test="type != null">
+          type,
+        </if>
+        <if test="identification != null">
+          identification,
+        </if>
+        <if test="address != null">
+          address,
+        </if>
+        <if test="unit != null">
+          unit,
+        </if>
+      </trim>
+      <trim prefix="values(" suffix=")" suffixOverrides=",">
+        <if test="id != null">
+          #{id ,jdbcType=VARCHAR},
+        </if>
+        <if test="username != null">
+          #{username ,jdbcType=VARCHAR},
+        </if>
+        <if test="password != null">
+          #{password ,jdbcType=VARCHAR},
+        </if>
+        <if test="telephone != null">
+          #{telephone ,jdbcType=VARCHAR},
+        </if>
+        <if test="email != null">
+          #{email ,jdbcType=VARCHAR},
+        </if>
+        <if test="homeUrl != null">
+          #{homeUrl ,jdbcType=VARCHAR},
+        </if>
+        <if test="screenName != null">
+          #{screenName ,jdbcType=VARCHAR},
+        </if>
+        <if test="created != null">
+          #{created ,jdbcType=INTEGER},
+        </if>
+        <if test="activated != null">
+          #{activated ,jdbcType=INTEGER},
+        </if>
+        <if test="logged != null">
+          #{logged ,jdbcType=INTEGER},
+        </if>
+        <if test="groupName != null">
+          #{groupName ,jdbcType=VARCHAR},
+        </if>
+        <if test="status != null">
+          #{status ,jdbcType=VARCHAR},
+        </if>
+        <if test="type != null">
+          #{type ,jdbcType=VARCHAR},
+        </if>
+        <if test="identification != null">
+          #{identification ,jdbcType=VARCHAR},
+        </if>
+        <if test="address != null">
+          #{address ,jdbcType=VARCHAR},
+        </if>
+        <if test="unit != null">
+          #{unit ,jdbcType=VARCHAR},
+        </if>
+      </trim>
+  </insert>
+  <select id="countByUsername" parameterType="java.lang.String" resultType="java.lang.Long">
+    select count(*) from t_users where status != '2' and username = #{username,jdbcType=VARCHAR}
+    <if test="id != null">
+        and id != #{id,jdbcType=VARCHAR}
+    </if>
+  </select>
+  <update id="updateByPrimaryKey" parameterType="com.lwp.website.entity.Vo.UserVo">
+    update t_users
+    <set>
+      <if test="username != null">
+        username = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="password != null">
+        password = #{password,jdbcType=VARCHAR},
+      </if>
+      <if test="email != null">
+        email = #{email,jdbcType=VARCHAR},
+      </if>
+      <if test="homeUrl != null">
+        home_url = #{homeUrl,jdbcType=VARCHAR},
+      </if>
+      <if test="screenName != null">
+        screen_name = #{screenName,jdbcType=VARCHAR},
+      </if>
+      <if test="created != null">
+        created = #{created,jdbcType=INTEGER},
+      </if>
+      <if test="activated != null">
+        activated = #{activated,jdbcType=INTEGER},
+      </if>
+      <if test="logged != null">
+        logged = #{logged,jdbcType=INTEGER},
+      </if>
+      <if test="groupName != null">
+        group_name = #{groupName,jdbcType=VARCHAR},
+      </if>
+      <if test="telephone != null">
+        telephone= #{telephone,jdbcType=VARCHAR},
+      </if>
+      <if test="status != null">
+        status= #{status,jdbcType=VARCHAR},
+      </if>
+      <if test="type != null">
+        type= #{type,jdbcType=VARCHAR},
+      </if>
+      <if test="identification !=null">
+        identification= #{identification,jdbcType=VARCHAR},
+      </if>
+      <if test="address != null">
+        address= #{address,jdbcType=VARCHAR},
+      </if>
+      <if test="unit != null">
+        unit= #{unit,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where id = #{id,jdbcType=VARCHAR}
+  </update>
+  <select id="selectUserByName" resultMap="BaseResultMap" parameterType="java.lang.String">
+        select * from t_users where username = #{userName,jdbcType=VARCHAR} and status !='2'
+    </select>
+  <update id="updatePwd">
+        update t_users set password = #{pwd,jdbcType=VARCHAR} where id = #{id,jdbcType=VARCHAR}
+    </update>
+
+  <update id="updateUserWithStatus" parameterType="java.util.Map">
+    update t_users set status =(case status when '1' then '0' when '0' then '1' end) where id in
+    <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <update id="updateUserWithDelete" parameterType="java.util.Map">
+    update t_users set status='2'  where id in
+    <foreach collection="ids" item="id" index="index" open="(" close=")" separator=",">
+      #{id,jdbcType=VARCHAR}
+    </foreach>
+  </update>
+
+  <select id="getListByName" parameterType="java.util.Map" resultMap="BaseResultMap">
+    select * from t_users where status != '2' and username in
+        <foreach collection="names" item="name" index="index" open="(" close=")" separator=",">
+          #{name,jdbcType=VARCHAR}
+        </foreach>
+  </select>
+</mapper>

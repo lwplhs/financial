@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
+<head>
+    <style type="text/css">
+        .layui-form-item{
+            margin-bottom: 5px!important;
+        }
+        .layui-form-item .layui-input-inline {
+            margin-right: 0px!important;
+        }
+        .layui-form-label {
+            padding: 9px 10px!important;
+        }
+    </style>
+</head>
+<body>
+<div style="padding-top: 2%" />
+<form class="layui-form layui-form-pane" id="form-financial-record-add" method="post">
+    <input hidden="hidden" name="id" th:value="${record.id}">
+    <div class="layui-form-item">
+        <label class="layui-form-label">理财名称：</label>
+        <div class="layui-input-inline">
+            <ll:combo dictType="理财名称" th:readonly="${action=='addAssign'}" class="select" id="financialName" name="financialName" th:value="${record.financialId}"></ll:combo>
+        </div>
+    </div>
+    <div class="layui-form-item">
+        <label class="layui-form-label">收益金额：</label>
+        <div class="layui-input-inline">
+            <input type="text" name="purchaseAmount" lay-verify="title" autocomplete="off" th:value="${record.recordAmount}" placeholder="购买金额" class="layui-input" />
+        </div>
+    </div>
+    <div class="layui-form-item" pane="">
+        <label class="layui-form-label">收益时间：</label>
+        <div class="layui-input-block">
+            <input type="text" th:readonly="true" name="purchaseTime" id="purchaseTime" th:value="${record.recordTime}" class="layui-input" placeholder="yyyy-MM-dd" />
+        </div>
+    </div>
+    <div style="height:30px">
+    </div>
+    <div>
+        <div style="text-align: center">
+            <HR style="FILTER: alpha(opacity=100,finishopacity=0,style=3)" width="100%" color=#987cb9 SIZE=3 />
+        </div>
+        <div style="text-align: right;padding-right: 1%">
+            <button type="button" onclick="submitFinancial()" class="layui-btn layui-btn-normal layui-btn-radius">确定</button>
+            <button type="button" onclick="quxiao()" class="layui-btn layui-btn-warm layui-btn-radius">取消</button>
+        </div>
+    </div>
+</form>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<script type="text/javascript" th:src="@{/static/admin/n_n/financial/addRecord.js}"></script>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
+</body>
+<script type="text/javascript">
+
+</script>
+</html>

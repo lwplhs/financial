@@ -1,0 +1,73 @@
+<!DOCTYPE HTML>
+<html lang="en" xmlns:th="http://www.thymeleaf.org" th:with="title=${commons.getTitle()},active='home',logo=${commons.getLogo()},copyright=${commons.getCopyright()}">
+<header th:replace="/admin/header::headerFragment(${title},${active},${logo})"></header>
+<body>
+<head>
+    <style type="text/css">
+        .layui-form-item{
+            margin-bottom: 5px!important;
+        }
+        .layui-form-item .layui-input-inline {
+            margin-right: 0px!important;
+        }
+        .layui-form-label {
+            padding: 9px 10px!important;
+        }
+        .layui-upload-img{
+            width: 92px;
+            height: 92px;
+            margin: 0 10px 10px 110px;
+
+        }
+    </style>
+</head>
+<div class="page-container">
+    <div style="overflow:hidden;zoom:1;">
+        <div class="cl pd-5 bg-1 bk-gray">
+        <table>
+            <td>
+<!--                <div class="search_box_con">
+                    <input type="text" placeholder="请输入搜索关键字" onkeydown="if(event.keyCode==13)searchValue()" id="search"/>
+                    <a class="fe-font Hui-iconfont" href="#this" onclick="searchValue()">&#xe709;</a>
+                    &lt;!&ndash;<span class="fe-font Hui-iconfont"></span>&ndash;&gt;
+                </div>-->
+            </td>
+            <td>
+                <div>
+                    <ul class="toolbar_list">
+                        <li><a href="javascript:;" id="btn-delete" onclick="btn_save()" class="btn btn-danger radius"><i class="Hui-iconfont">&#xe632;</i> 保存</a></li>
+                    </ul>
+                </div>
+            </td>
+            <td></td>
+        </table>
+    </div>
+        <div style="padding-top: 1%">
+            <form class="layui-form layui-form-pane" id="form-system-add" method="post">
+                <div class="layui-upload">
+                    <label class="layui-form-label">logo：</label>
+                    <input hidden="hidden" name="logo" id="logo" th:value="${systemBo.logo}"/>
+                    <button type="button" class="layui-btn" id="test1">上传图片</button>
+                    <div class="layui-upload-list">
+                        <img class="layui-upload-img" id="demo1" th:src="${logoPath}">
+                        <p id="demoText"></p>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label">版权信息：</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="copyright" lay-verify="title" autocomplete="off" th:value="${systemBo.copyright}" placeholder="版权信息" class="layui-input" />
+                    </div>
+                </div>
+            </form>
+        </div>
+
+    </div>
+</div>
+<div th:replace="/admin/footer::footer_common"></div>
+<div th:replace="/admin/footer::footer-np"></div>
+<script type="text/javascript" th:src="@{/static/admin/n_n/system/manager.js}"></script>
+<div th:replace="/admin/footer::footer-content(${copyright})"></div>
+
+</body>
+</html>
